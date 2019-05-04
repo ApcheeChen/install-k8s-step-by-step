@@ -1,0 +1,5 @@
+- hosts: allnode
+  remote_user: root
+  roles:
+    - 01-initialize
+
