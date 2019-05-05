@@ -1,0 +1,11 @@
+---
+- hosts: master
+  remote_user: root
+  vars:
+    IP: {{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}
+  tasks:
+    - name: upload etcd binary files
+    - name: upload etcd systemd unit
+    - name: upload etcd cert
+    - name: start etcd service
+
