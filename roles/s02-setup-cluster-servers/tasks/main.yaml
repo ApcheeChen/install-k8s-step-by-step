@@ -1,0 +1,31 @@
+---
+- name: create directory
+  file:
+    path: /ops/k8s/bin
+    state: directory
+    mode: "u=rwx,g=rwx,o=rwx"
+- name: upload environment.sh
+  copy: 
+    src: environment.sh
+    dest: /opt/k8s/bin/environment.sh 
+    mode: 755
+- name: upload pre-initialize.sh
+  copy: 
+    src: initialize.sh 
+    dest: /tmp/initialize.sh 
+    mode: 755
+- name: set up servers
+  shell: /tmp/initialize.sh
+
+- name: copy root CA
+  copy:
+    src: '{{ item.src }}'
+    dest: '{{ item.dest }}'
+    mode: "{{ item.mode }}"
+  with_items:
+    - { src: '/opt/k8s/work/ca.pem', dest: '/etc/kubernetes/cert/', mode: '755' }
+    - { src: '/opt/k8s/work/ca-key.pem', dest: '/etc/kubernetes/cert/', mode: '755' }
+    - { src: '/opt/k8s/work/ca-config.json', dest: '/etc/kubernetes/cert/', mode: '755' }
+    - { src: "/opt/k8s/work/kubectl.kubeconfig", dest: "~/.kube/config", mode: "755" }
+    - { src: "/opt/k8s/work/kubernetes/client/bin/kubectl", dest: "/opt/k8s/bin/kubectl", mode: "755" }
+

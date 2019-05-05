@@ -7,6 +7,7 @@ echo 'export PATH=$PATH:/opt/k8s/bin' >> /root/.bashrc
 
 # create relative directories
 mkdir -p  /opt/k8s/{bin,work} /etc/kubernetes/cert /etc/etcd/cert
+mkdir -p ~/.kube
 
 # install dependencies
 yum install -y epel-release

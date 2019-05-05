@@ -1,0 +1,6 @@
+- hosts: allnode
+  remote_user: root
+  roles:
+    - s02-setup-cluster-servers
+
+
